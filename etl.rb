@@ -1,3 +1,5 @@
+require 'singleton'
+
 class LineItem
   attr_reader :id, :parent, :children, :depth
   attr_accessor :item
@@ -44,10 +46,7 @@ class LineItem
 end
 
 class Task
-  def initialize
-    @root = nil
-    @items = {}
-  end
+  include Singleton
 
   def run
     while line = gets do
@@ -60,6 +59,11 @@ class Task
   private
 
   attr_reader :root, :items
+
+  def initialize
+    @root = nil
+    @items = {}
+  end
 
   def process(item, id, parent_id)
     line_item = (items[id] ||= LineItem.new(id: id))
@@ -82,5 +86,5 @@ class Task
   end
 end
 
-Task.new.run
+Task.instance.run
 
