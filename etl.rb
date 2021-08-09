@@ -6,7 +6,7 @@ class LineItem
 
   def initialize(id)
     @id = id
-    @item = item
+    @item = nil
     @parent = nil
     @children = []
   end
